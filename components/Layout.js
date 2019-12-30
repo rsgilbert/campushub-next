@@ -24,8 +24,10 @@ const Layout = props => (
     <ApolloProvider client={client}>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/4.3.1/css/bootstrap.min.css" />
-        <NavBar />
-        { props.children }
+        <div className="container">
+            { props.children }
+        </div>
+        
     </ApolloProvider>
 )
 

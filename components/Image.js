@@ -8,7 +8,7 @@ export default function Image(props) {
         <div class="text-center">
             <img 
                 src={props.src} 
-                class="img-fluid"/>
+                className="img-fluid"/>
         </div>
     )
 }

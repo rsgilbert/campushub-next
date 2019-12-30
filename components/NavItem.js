@@ -1,4 +1,3 @@
-import React from 'react'
 import Icon from './Icon'
 import Item from './Item'
 export default function NavItem(props) {
