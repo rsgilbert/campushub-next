@@ -1,34 +1,21 @@
-
-import './jquery.min.js'
-// import 'bootstrap/dist/js/bootstrap.js'
-
-
-const Carousel = props => (
-    <div id="carouselExampleControls" 
-        className="carousel slide" 
-        data-ride="carousel"
-        >
-        <div 
-            className="carousel-inner">
-            <div className="carousel-item active">
-                <img src="http://localhost/adele.png" className="d-block w-100" alt="..."/>
+// import 'react-responsive-carousel/lib/styles/carousel.min.css'
+import { Carousel } from 'react-responsive-carousel'
+import ImageItem from './Image'
+const MyCarousel = props => (
+    <>
+        <link 
+            href="/carousel.min.css"
+            rel="stylesheet"
+            />
+        <Carousel showThumbs={false}>
+            <div style={{ height:'100px' }}>
+                <img src="/adele.png" className="img-fluid" />=
             </div>
-            <div className="carousel-item">
-                <img src="http://localhost/me.jpg" className="d-block w-100" alt="..."/>
+            <div>
+                <img src="/messiah.jpg" />
             </div>
-            <div className="carousel-item">
-                <img src="http://localhost/messiah.jpg" className="d-block w-100" alt="..."/>
-            </div>
-        </div>
-        <a className="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-            <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span className="sr-only">Previous</span>
-        </a>
-        <a className="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-            <span className="carousel-control-next-icon" aria-hidden="true"></span>
-            <span className="sr-only">Next</span>
-        </a>
-    </div>
-    )
+        </Carousel>
+    </>
+)
 
-export default Carousel
+export default MyCarousel

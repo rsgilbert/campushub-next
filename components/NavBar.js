@@ -1,31 +1,22 @@
 import React from 'react'
 import NavItem from './NavItem'
+import Item from './Item'
 import Link from 'next/link'
 export default function NavBar(props) {
 
     return (
-        <nav className="navbar border-top fixed-bottom 
-            navbar-light bg-light justify-content-center">
+        <nav className="nav
+            bg-dark justify-content-between">
             <Link href="/">
                 <a>
-                    <NavItem title="Home" icon="fa-home"/>
+                    <div className="navbar text-light px-2">Easy Park</div>
                 </a>
             </Link>
-            { props.parkId && 
-                <Link href="/map/[map]" as={`/map/${props.parkId}`}>
-                    <a>
-                        <NavItem title="Map" icon="fa-map" />
-                    </a>
-                </Link>
-            }
-            { !props.parkId &&
-                <Link href="/settings">
-                    <a>                    
-                        <NavItem title="Settings" icon="fa-gear" />
-                    </a>
-                </Link>
-            }
-            
+            <Link href="/manager">
+                <a>
+                    <div className="navbar text-light">Manager</div>
+                </a>
+            </Link>
         </nav>
     )
 }

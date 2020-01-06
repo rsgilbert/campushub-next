@@ -8,7 +8,7 @@ export default function Park(props) {
                     <b>{props.park.name}</b>
                 </div>
                 <div>
-                    { props.park.location.place }
+                    { props.park.location  && props.park.location.place }
                 </div>
             </div>
         </Link>

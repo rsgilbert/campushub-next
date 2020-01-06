@@ -8,6 +8,7 @@ import { Query } from 'react-apollo'
 
 
 
+
 export default function Park() {
     const router = useRouter()
     const id = router.query.id
@@ -15,20 +16,20 @@ export default function Park() {
         <Layout parkId={id}>
             <Query query={PARK_QUERY} variables={ { id } }>
             {({ loading, error, data }) => {
-                if(loading) return <div>Fetching</div>
-                if(error) throw error
-                const park = data.park                
+                // if(loading) return <div>Fetching</div>
+                // if(error) throw error
+                // const park = data.park                
                 return (
                     <>
-                        <Title title={park.name} /> 
+                        {/* <Title title={park.name} />  */}
                         <Carousel />
-                        <ImageList />
+                        {/* <ImageList />
                         <div>
                             Managed by: {park.manager.name}
                         </div>                   
                         <div>
                             Located at: { park.location.place }
-                        </div>
+                        </div> */}
                     </>
                 )
             }}
