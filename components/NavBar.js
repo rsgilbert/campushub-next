@@ -1,9 +1,8 @@
 import React from 'react'
-import NavItem from './NavItem'
-import Item from './Item'
 import Link from 'next/link'
-export default function NavBar(props) {
 
+
+export default function NavBar(props) {
     return (
         <nav className="nav
             bg-dark justify-content-between">
@@ -14,7 +13,7 @@ export default function NavBar(props) {
                     </div>
                 </a>
             </Link>
-            <Link href="/manager">
+            <Link href="/login">
                 <a>
                     <div className="navbar text-light">
                         Login

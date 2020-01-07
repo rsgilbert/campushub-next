@@ -17,10 +17,10 @@ const Item = props => {
                     images={props.item.images}
                     />
                     <Link
-                        href={`/${props.item.id}`}
+                        href={`/items/${props.item.id}`}
                         >
                         <a
-                            className="btn text-right"
+                            className=" text-right p-2"
                             >
                             VISIT
                         </a>

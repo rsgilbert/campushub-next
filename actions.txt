@@ -1,0 +1,2 @@
+// renaming all deprecated lifecycles to their new names
+npx react-codemod rename-unsafe-lifecycles

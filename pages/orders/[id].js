@@ -1,18 +1,17 @@
-import Layout from '../components/Layout'
+import Layout from '../../components/Layout'
 import { gql } from 'apollo-boost'
 import { Query } from 'react-apollo'
 import { useRouter } from 'next/router'
-
-import ItemList from '../components/ItemList'
-import Detail from '../components/Detail'
+import Order from '../../components/Order'
 
 const Index = () => {
     const router = useRouter()
     const id = router.query.id
 
+    console.log(id)
     return (
         <Layout>
-            <Detail id={id} />
+            <Order id={id} />
         </Layout>
     )
 } 

@@ -1,5 +1,3 @@
-
-
 const CarouselItem = props => {
     return (
         <div
