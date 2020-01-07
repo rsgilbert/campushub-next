@@ -20,17 +20,21 @@ const client = new ApolloClient({
     cache: new InMemoryCache()
 })
 
-fetch('http://localhost:4000/test')
-    .then(jsonData => {
-        console.log(jsonData)
-    })
+// fetch('http://localhost:4000/test')
+//     .then(jsonData => {
+//         console.log(jsonData)
+//     })
 
 const Layout = props => (
     <ApolloProvider client={client}>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/4.3.1/css/bootstrap.min.css" />
+        <link 
+            href="/carousel.min.css"
+            rel="stylesheet"
+            />
         <NavBar/>
-        <div className="container">
+        <div className="container pt-2">
             { props.children }
         </div>
     </ApolloProvider>

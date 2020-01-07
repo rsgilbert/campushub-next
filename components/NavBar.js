@@ -9,12 +9,16 @@ export default function NavBar(props) {
             bg-dark justify-content-between">
             <Link href="/">
                 <a>
-                    <div className="navbar text-light px-2">Easy Park</div>
+                    <div className="navbar text-light px-2">
+                        CampusHub
+                    </div>
                 </a>
             </Link>
             <Link href="/manager">
                 <a>
-                    <div className="navbar text-light">Manager</div>
+                    <div className="navbar text-light">
+                        Login
+                    </div>
                 </a>
             </Link>
         </nav>

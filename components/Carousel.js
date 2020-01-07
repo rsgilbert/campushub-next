@@ -1,21 +1,23 @@
-// import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import { Carousel } from 'react-responsive-carousel'
-import ImageItem from './Image'
+import CarouselItem from './CarouselItem'
+
 const MyCarousel = props => (
     <>
-        <link 
-            href="/carousel.min.css"
-            rel="stylesheet"
-            />
-        <Carousel showThumbs={false}>
-            <div style={{ height:'100px' }}>
-                <img src="/adele.png" className="img-fluid" />=
-            </div>
-            <div>
-                <img src="/messiah.jpg" />
-            </div>
+        <Carousel 
+            showThumbs={false} 
+            showStatus={false}
+            infiniteLoop={true}
+            >
+            { props.images.map(image => (
+                <CarouselItem
+                    key={image}
+                    image={image}
+                    />
+            ))}
         </Carousel>
     </>
 )
+
+
 
 export default MyCarousel

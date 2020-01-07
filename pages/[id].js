@@ -1,14 +1,21 @@
 import Layout from '../components/Layout'
 import { gql } from 'apollo-boost'
 import { Query } from 'react-apollo'
+import { useRouter } from 'next/router'
+
 import ItemList from '../components/ItemList'
+import Detail from '../components/Detail'
 
+const Index = () => {
+    const router = useRouter()
+    const id = router.query.id
 
-const Index = () => (
-    <Layout>
-        <ItemList />
-    </Layout>
-)
+    return (
+        <Layout>
+            <Detail id={id} />
+        </Layout>
+    )
+} 
 // const Index = () => (
 //     <Layout>
 //         <Title title="Nearby Parks" />
