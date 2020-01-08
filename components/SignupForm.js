@@ -3,44 +3,62 @@ import Form from "./Form"
 import FormItem from "./FormItem"
 import { useState } from 'react'
 import { gql, useMutation } from '@apollo/client'
-
-// import Router from 'next/link'
+import { saveToken } from './utils'
+import DangerAlert from './DangerAlert'
+import Router from 'next/link'
 
 
 const SignupForm = () => {
+    let [showDangerAlert, setShowDangerAlert] = useState(false)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [signup, data] = useMutation(SIGNUP_MUTATION)
+    const [SignupMutation] = useMutation(SIGNUP_MUTATION, {
+        onCompleted: data => {
+            saveToken(data.signup.token)
+            location.href = "/"
+        },
+        onError: error => {
+            setShowDangerAlert(true)
+            // console.log("Error: " + error)
+        }
+    })
+  
 
     const handleSubmit = event => {
         event.preventDefault()
-        signup({
+        SignupMutation({
             variables: { email, password }
         })
-        console.log(data)
     }
     return (
-        <Form
-            header={ Header }
-            submitButtonTitle="SIGNUP"
-            handleSubmit={handleSubmit}
-            >
-            <FormItem
-                label="Email"
-                placeholder="Email"
-                type="email"
-                value={email}
-                onChange={setEmail}
-                />
+        <>
+            { showDangerAlert && 
+                <DangerAlert 
+                    message = "Invalid credentials" 
+                    />
+            }
+            <Form
+                header={ Header }
+                submitButtonTitle="SIGNUP"
+                handleSubmit={handleSubmit}
+                >
+                <FormItem
+                    label="Email"
+                    placeholder="Email"
+                    type="email"
+                    value={email}
+                    onChange={setEmail}
+                    />
 
-            <FormItem
-                label="Password"
-                placeholder="Password"
-                type="password"
-                value={password}
-                onChange={setPassword}
-                />
-        </Form>
+                <FormItem
+                    label="Password"
+                    placeholder="Password"
+                    type="password"
+                    value={password}
+                    onChange={setPassword}
+                    />
+            </Form>
+        </>
     )
 }
 
@@ -54,7 +72,7 @@ const Header =  (
 )
 
 const SIGNUP_MUTATION = gql`
-    mutation (
+    mutation SignupMutation(
         $email: String!,
         $password: String!,
     )   {

@@ -3,20 +3,38 @@ import Form from "./Form"
 import FormItem from "./FormItem"
 import { useState } from 'react'
 import { useMutation, gql } from '@apollo/client'
-
+import { saveToken } from './utils'
+import DangerAlert from './DangerAlert'
 
 const LoginForm = () => {
+    let [showDangerAlert, setShowDangerAlert] = useState(false)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [login, data ] = useMutation(LOGIN_MUTATION)
+    const [LoginMutation] = useMutation(LOGIN_MUTATION, {
+        onCompleted: data => {
+            saveToken(data.login.token)
+            location.href = "/"
+        },
+        onError: error => {
+            setShowDangerAlert(true)
+            // console.log("Error: " + error)
+        }
+    })
 
     const handleSubmit = event => {
         event.preventDefault()
-        login({ email, password })
-        console.log(data)
+        LoginMutation({
+            variables: { email, password }
+        })
     }
 
-    return (
+    return (   
+        <>
+            { showDangerAlert && 
+                <DangerAlert 
+                    message = "Invalid credentials" 
+                    />
+            }
             <Form
                 submitButtonTitle="LOGIN"
                 header={LoginHeader}
@@ -38,10 +56,11 @@ const LoginForm = () => {
                     onChange={setPassword}
                     />
             </Form>
+        </>
     )
 } 
 const LOGIN_MUTATION = gql`
-    mutation (
+    mutation LoginMutation (
         $email: String!,
         $password: String!,
     )   {

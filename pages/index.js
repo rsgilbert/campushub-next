@@ -1,6 +1,5 @@
 import Layout from '../components/Layout'
 import { gql } from 'apollo-boost'
-import { Query } from 'react-apollo'
 import ItemList from '../components/ItemList'
 
 

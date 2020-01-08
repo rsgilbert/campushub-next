@@ -3,7 +3,6 @@ const CheckBoxItem = props => {
     const handleChange = event => {
         props.onChange(event.target.checked)
     }
-
     return (
         <div className="custom-control custom-checkbox py-1">
             <input 
