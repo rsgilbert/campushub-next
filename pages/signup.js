@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Form from "../components/Form"
 import FormItem from "../components/FormItem"
 import { useState } from 'react'
-import { Mutation } from 'react-apollo'
+import { useMutation } from 'react-apollo'
 import { gql } from 'apollo-boost'
 import Router from 'next/link'
 
@@ -11,12 +11,21 @@ import Router from 'next/link'
 const Signup = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [signup, { data }] = useMutation(SIGNUP_MUTATION)
 
-
+    const handleSubmit = event => {
+        event.preventDefault()
+        signup({
+            variables: { email, password }
+        })
+        input.value = "cham"
+    }
     return (
         <Layout>
             <Form
                 header={ Header }
+                submitButtonText="SIGNUP"
+                handleSubmit={handleSubmit}
                 >
                 <FormItem
                     label="Email"
@@ -33,25 +42,6 @@ const Signup = () => {
                     value={password}
                     onChange={setPassword}
                     />
-                <Mutation 
-                    mutation={SIGNUP_MUTATION}
-                    variables = { 
-                        { email, password }
-                    }
-                    onCompleted={ () => {
-                        console.log("completed")
-                        Router.push('/stock')
-                    } }
-                    >
-                    { signupMutation => (
-                        <button
-                            onClick={signupMutation}
-                            className="btn btn-block btn-dark"
-                            > 
-                            SIGNUP
-                        </button>
-                    )}
-                </Mutation>
             </Form>
         </Layout>
     )
@@ -75,13 +65,41 @@ const SIGNUP_MUTATION = gql`
             email: $email,
             password: $password,
         )   {
-            token,
-            user {
-                id,
-                email
-            }   
+            token 
         }
     }
 `;
 
 export default Signup
+
+/**
+ * Legacy
+ *  <Mutation 
+                    mutation={SIGNUP_MUTATION}
+                    variables = { 
+                        { email, password }
+                    }
+                    onCompleted={ () => {
+                        console.log("completed")
+                        // Router.push('/stock')
+                    } }
+                    onError = { error => {
+                        alert(error)
+                        console.log("Error" + error)
+                        throw error
+                    }}
+                    onChange = {() => console.log("change")}
+                    onClick = { (event) => {
+                        event.preventDefault()
+                        console.log("prevented")
+                    }}
+                    { signupMutation => (
+                        <button
+                            onClick={signupMutation}
+                            className="btn btn-block btn-dark"
+                            > 
+                            SIGNUP
+                        </button>
+                    )}
+                </Mutation>
+ */
