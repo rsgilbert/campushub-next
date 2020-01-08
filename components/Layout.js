@@ -1,13 +1,15 @@
-import { ApolloProvider } from 'react-apollo'
-import { ApolloClient } from 'apollo-client'
-import { createHttpLink } from 'apollo-link-http'
-import { InMemoryCache } from 'apollo-cache-inmemory'
+import { 
+    ApolloProvider,
+    ApolloClient,
+    HttpLink, 
+    InMemoryCache    
+} from '@apollo/client'
 import { setContext } from 'apollo-link-context' // depends on graphql
 import fetch from 'isomorphic-unfetch'
 import NavBar from './NavBar'
 import { AUTH_TOKEN } from '../constants'
 
-const httpLink = createHttpLink({
+const httpLink = new HttpLink({
     uri: 'http://localhost:4000/graphql',
     fetch
 })
@@ -42,7 +44,5 @@ const Layout = props => (
         </div>
     </ApolloProvider>
 )
-
-
 
 export default Layout
