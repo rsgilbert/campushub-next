@@ -10,9 +10,12 @@ const Form = props => (
                         method="post" 
                         onSubmit={props.handleSubmit}>
                         { props.children }
-                        <button className="btn btn-block btn-dark">
-                            { props.submitButtonTitle }
-                        </button>
+                        { 
+                            props.submitButtonTitle && 
+                            <button className="btn btn-block btn-dark">
+                                { props.submitButtonTitle }
+                            </button>
+                        }
                     </form>
                 </div>
             </div>

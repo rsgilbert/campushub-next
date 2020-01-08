@@ -2,12 +2,7 @@ import Layout from "../components/Layout"
 import Link from 'next/link'
 import Form from "../components/Form"
 import FormItem from "../components/FormItem"
-
-
-const handleSubmit = event => {
-    event.preventDefault()
-    console.log("submitted")
-}
+import { useState } from 'react'
 
 const LoginHeader =  (
     <>
@@ -18,24 +13,40 @@ const LoginHeader =  (
     </>
 )
 
-const Login = () => (
-    <Layout>
-        <Form
-            submitButtonTitle="LOGIN"
-            header={LoginHeader}
-            handleSubmit={handleSubmit}
-            >
-            <FormItem
-                label="Email"
-                placeholder="Email"
-                type="email"/>
+const Login = () => {
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
 
-            <FormItem
-                label="Password"
-                placeholder="Password"
-                type="password"/>
-        </Form>
-    </Layout>
-)
+    const handleSubmit = event => {
+        event.preventDefault()
+        console.log("submitted")
+    }
+
+    return (
+        <Layout>
+            <Form
+                submitButtonTitle="LOGIN"
+                header={LoginHeader}
+                handleSubmit={handleSubmit}
+                >
+                <FormItem
+                    label="Email"
+                    placeholder="Email"
+                    type="email"
+                    value={email}
+                    onChange={setEmail}
+                    />
+    
+                <FormItem
+                    label="Password"
+                    placeholder="Password"
+                    type="password"
+                    value={password}
+                    onChange={setPassword}
+                    />
+            </Form>
+        </Layout>
+    )
+} 
 
 export default Login
