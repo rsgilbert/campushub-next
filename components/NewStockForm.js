@@ -1,64 +1,46 @@
-import { gql, useQuery, useMutation } from '@apollo/client'
-import { useRouter } from 'next/router'
+import { gql, useMutation } from '@apollo/client'
 import Form from "./Form"
 import FormItem from "./FormItem"
 import CheckBoxItem from './CheckBoxItem'
 import { useState } from 'react'
-import Link from 'next/link'
+import DangerAlert from './DangerAlert'
 
 
-const StockForm =  () => {
-    const router = useRouter()
-    const id = router.query.id
-
-    console.log('id is ' + id)
-    // const [ItemQuery] = 
+const NewStockForm =  () => {
+    const [showDangerAlert, setShowDangerAlert] = useState(false)
+    const [alertMessage, setAlertMessage] = useState('')
     const [name, setName] = useState('')
     const [price, setPrice] = useState('')
     const [category, setCategory] = useState('')
     const [description, setDescription] = useState('')
     const [inStock, setInStock] = useState(true)
 
-
-   
-    const { loading, error, data } = useQuery(GET_STOCK_ITEM, {
-        variables: { id }
+    const [NewStockItemMutation] = useMutation(NEW_STOCK_ITEM, {
+        onCompleted: data => {
+            console.log(data)
+        },
+        onError: error => {
+            setShowDangerAlert(true)
+            console.log("Error: " + error)
+        }
     })
-    if(loading) {
-        return 'Loading'
-    }
-    if(error) {
-        return `Error. ${error.message}`
-    }
-    if(data) {
-        const item = data.item
-        console.log(item)
-        // setName(item.name)
-        // setPrice(item.price)
-        // setCategory(item.category)
-        // setDescription(item.description)
-        // setInStock(item.inStock)
-    }
     
 
     const handleSubmit = event => {
         event.preventDefault()
-        console.log("submitted")
+        NewStockItemMutation({
+            variables: { name, price: parseInt(price), category, description, inStock }
+        })
     }
-
-
-    const Header = (
-        <>
-            <b>Details</b>
-            <Link href={`/images/${id}`}>
-                <a>Images</a>
-            </Link>
-        </>
-    ) 
-
     return (
+        <>
+            { showDangerAlert && 
+                <DangerAlert 
+                    message = 'Invalid Input' 
+                    />
+            }
             <Form
-                submitButtonTitle="UPDATE"
+                submitButtonTitle="CREATE"
                 header={ Header }
                 handleSubmit={handleSubmit}
                 >
@@ -95,25 +77,38 @@ const StockForm =  () => {
                     onChange={setInStock}
                     />
             </Form>
+        </>
     )
 } 
 
-const GET_STOCK_ITEM = gql`
-    query QueryStockItem(
-        $id: ID!
+
+const NEW_STOCK_ITEM = gql`
+    mutation NewStockItemMutation(
+        $name: String,
+        $description: String,
+        $price: Int,
+        $category: String,
+        $inStock: Boolean
     ) {
-        stockItem (
-            id: $id
+        newItem (
+            name: $name,
+            price: $price,
+            description: $description,
+            category: $category,
+            inStock: $inStock
         ) {
             id
             name
             price
-            category         
+            category  
+            description       
         }
     }
 `;
 
+const Header = (
+    <div>New Stock Item</div>
+)
 
 
-
-export default StockForm
+export default NewStockForm

@@ -7,7 +7,6 @@ export default function NavBar(props) {
     let [isLoggedIn, setIsLoggedIn] = useState(false)
     useEffect(() => {
          setIsLoggedIn(hasToken())
-         console.log(isLoggedIn)
     })
 
     const handleLogout = e => {

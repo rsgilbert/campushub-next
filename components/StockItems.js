@@ -1,23 +1,69 @@
 import StockItem from './StockItem'
 import { gql, useQuery } from '@apollo/client'
+import Alert from './Alert'
+import Link from 'next/link'
 
-import { useQuery, gql } from '@apollo/client'
+
+const StockItems = props => {
+    const { loading, error, data } = useQuery(GET_STOCK)
+    if(loading) {
+        return 'Loading'
+    }
+    if(error) {
+        return `Error. ${error.message}`
+    }
+    const items = data.stock
+    console.log(data)
+    return (
+        items
+        ? 
+        <div
+            className="row justify-content-center">
+            { 
+                items.map(
+                    item => (
+                        <StockItem 
+                            key = { item.id }
+                            item = { item } />
+                        )
+                )
+            }
+        </div>
+        :
+        (
+            <>
+                <Alert 
+                    type="warning"
+                    message="You have no items in stock"
+                    />
+                <Link href="/stock/new">
+                    <a 
+                        className="btn btn-block btn-secondary"
+                        >
+                        Add Items
+                    </a>   
+                </Link> 
+            </>
+        ) 
+        
+    )
+}
 
 
-const StockItems = props => (
-    <div
-        className="row justify-content-center">
-        { 
-            props.items.map(
-                item => (
-                    <StockItem 
-                        key = { item.id }
-                        item = { item } />
-                    )
-            )
+const GET_STOCK = gql`
+    {
+        stock {
+            id
+            name
+            price
+            description
+            category
+            images {
+                id
+                src
+            }
         }
-    </div>
-)
-
+    }
+`;
 
 export default StockItems

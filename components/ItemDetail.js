@@ -3,19 +3,27 @@ import ActionBar from './ActionBar'
 import Icon from './Icon'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { gql, useQuery } from '@apollo/client'
 
-
-
-
-const Detail = props => {
-    const item = props.item
+const ItemDetail = props => {
     const router = useRouter()
     const id = router.query.id
-    console.log(id)
+
+    const { loading, error, data } = useQuery(GET_ITEM_BY_ID, {
+        variables: { id }
+    })
+    
+    if(loading) {
+        return 'Loading'
+    }
+    if(error) {
+        return `Error. ${error.message}`
+    }
+    const item = data.item
     return (
         <>
             <Carousel 
-                images={props.item.images}
+                images={item.images}
                 />
             <div
                 className="my-4 pb-4">    
@@ -39,7 +47,22 @@ const Detail = props => {
     )
 }
 
+const GET_ITEM_BY_ID = gql`
+    query ItemQuery(
+        $id: ID!
+    ) {
+        item(id: $id) {
+            id
+            name
+            price
+            description
+            category
+            images {
+                src
+                id
+            }
+        }
+    }
+`;
 
-
-
-export default Detail
+export default ItemDetail

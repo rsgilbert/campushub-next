@@ -1,4 +1,4 @@
-// The most beautiful code I have ever written. 10:29PM, 8th Jan 2020
+// The most beautiful code I have ever written. Every line is achives something useful. No boilerplate. 10:29PM, 8th Jan 2020
 import Item from './Item'
 import { gql, useQuery } from '@apollo/client'
 
@@ -38,6 +38,6 @@ const GET_ITEMS = gql`
             }
         }
     }
-`
+`;
 
 export default ItemList
