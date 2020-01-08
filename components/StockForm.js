@@ -1,9 +1,8 @@
-import { gql } from 'apollo-boost'
-import { Query } from 'react-apollo'
+import { gql, useQuery, useMutation } from '@apollo/client'
 import { useRouter } from 'next/router'
-import Form from "./components/Form"
-import FormItem from "./components/FormItem"
-import CheckBoxItem from './components/CheckBoxItem'
+import Form from "./Form"
+import FormItem from "./FormItem"
+import CheckBoxItem from './CheckBoxItem'
 import { useState } from 'react'
 import Link from 'next/link'
 
@@ -11,6 +10,8 @@ import Link from 'next/link'
 const StockForm =  () => {
     const router = useRouter()
     const id = router.query.id
+
+    // const [ItemQuery] = 
     const [name, setName] = useState(item.name || '')
     const [price, setPrice] = useState(item.price || '')
     const [category, setCategory] = useState(item.category || '')
@@ -73,5 +74,9 @@ const StockForm =  () => {
     )
 } 
 
-
+const GET_STOCK_ITEM = gql`
+    {
+        item
+    }
+`
 export default StockForm

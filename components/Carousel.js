@@ -7,10 +7,10 @@ const MyCarousel = props => (
         showStatus={false}
         infiniteLoop={true}
         >
-        { props.images.map(image => (
+        { props.images && props.images.map(image => (
             <CarouselItem
-                key={image}
-                image={image}
+                key={image.id}
+                image={image.src}
                 />
         ))}
     </Carousel>

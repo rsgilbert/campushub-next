@@ -1,10 +1,20 @@
+// The most beautiful code I have ever written. 10:29PM, 8th Jan 2020
 import Item from './Item'
+import { gql, useQuery } from '@apollo/client'
 
 const ItemList = props => {
+    const { loading, error, data } = useQuery(GET_ITEMS)
+    if(loading) {
+        return 'Loading'
+    }
+    if(error) {
+        return `Error. ${error.message}`
+    }
+
     return (
         <div
             className="row justify-content-center">
-                { items.map(item => (
+                { data.items.map(item => (
                     <Item 
                         item={item}
                         key={item.id}
@@ -14,53 +24,20 @@ const ItemList = props => {
     )
 }
 
-
-const items = [
+const GET_ITEMS = gql`
     {
-        id: '1',
-        name: 'Belt',
-        price: 2000,
-        images: [
-            "/adele.png",
-            "/clare.PNG",
-            '/me.jpg',
-            '/messiah.jpg'
-        ]
-    },
-    {
-        id: 2,
-        name: 'Belt',
-        price: 2000,
-        images: [
-            "/adele.png",
-            "/clare.PNG",
-            '/me.jpg',
-            '/messiah.jpg'
-        ]
-    },
-    {
-        id: 3,
-        name: 'Belt',
-        price: 2000,
-        images: [
-            "/adele.png",
-            "/clare.PNG",
-            '/me.jpg',
-            '/messiah.jpg'
-        ]
-    },
-    {
-        id: 4,
-        name: 'Belt',
-        price: 2000,
-        images: [
-            "/adele.png",
-            "/clare.PNG",
-            '/me.jpg',
-            '/messiah.jpg'
-        ]
-    },
-]
-
+        items {
+            id
+            name
+            price
+            description
+            category
+            images {
+                id
+                src
+            }
+        }
+    }
+`
 
 export default ItemList

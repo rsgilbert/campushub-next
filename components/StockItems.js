@@ -1,5 +1,7 @@
 import StockItem from './StockItem'
+import { gql, useQuery } from '@apollo/client'
 
+import { useQuery, gql } from '@apollo/client'
 
 
 const StockItems = props => (
@@ -16,5 +18,6 @@ const StockItems = props => (
         }
     </div>
 )
+
 
 export default StockItems

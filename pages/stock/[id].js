@@ -6,3 +6,5 @@ const UpdateStock = () => (
         <StockForm />
     </Layout>
 )
+
+export default UpdateStock
