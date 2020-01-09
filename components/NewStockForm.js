@@ -17,7 +17,7 @@ const NewStockForm =  () => {
 
     const [NewStockItemMutation] = useMutation(NEW_STOCK_ITEM, {
         onCompleted: data => {
-            console.log(data)
+            location.href = "/stock"
         },
         onError: error => {
             setShowDangerAlert(true)

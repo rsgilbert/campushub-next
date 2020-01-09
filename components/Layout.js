@@ -9,9 +9,10 @@ import fetch from 'isomorphic-unfetch'
 import NavBar from './NavBar'
 import { AUTH_TOKEN } from '../constants'
 
+const uri = 'https://campushub-server.herokuapp.com/graphql'
+
 const httpLink = new HttpLink({
-    uri: 'http://localhost:4000/graphql',
-    fetch
+    uri, fetch
 })
 
 // authMiddleware. Sets authorization token on every request

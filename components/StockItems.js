@@ -15,7 +15,7 @@ const StockItems = props => {
     const items = data.stock
     console.log(data)
     return (
-        items
+        items.length
         ? 
         <div
             className="row justify-content-center">
