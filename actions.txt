@@ -1,2 +1,12 @@
 // renaming all deprecated lifecycles to their new names
 npx react-codemod rename-unsafe-lifecycles
+
+// deployment
+yarn global add now
+now
+
+// url
+https://campushub-3938fccoe.now.sh`
+
+// In future deployment for production
+now --prod
